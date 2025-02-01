@@ -39,8 +39,18 @@ Last Updated: 2025-02-02
   - Content scaling for page size
   - Consistent page layouts
 
+### Backlog Features
 - FR5: Watermark Configuration ( points) 
-  - Not yet implemented
+  - Text watermark configuration
+  - Position customization
+  - Rotation control
+  - Opacity adjustment
+
+**Note**: The watermark feature implementation has been moved to the backlog due to technical challenges with the current approach. Two attempts were made:
+1. HTML/CSS-based watermark using WeasyPrint
+2. Direct PDF manipulation using reportlab and PyPDF2
+
+Both approaches had limitations in achieving the desired visibility and consistency across different PDF viewers. This feature will be revisited in a future sprint with alternative technical solutions.
 
 ## Project Structure
 ```

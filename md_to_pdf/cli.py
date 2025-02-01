@@ -7,21 +7,54 @@ import sys
 
 @click.group()
 def cli():
-    """Markdown to PDF converter CLI."""
+    """Convert Markdown to PDF with various options."""
     pass
 
 @cli.command()
 @click.argument('input_file', type=click.Path(exists=True))
 @click.argument('output_file', type=click.Path())
 @click.option('--template', default='default.html', help='HTML template to use')
-def convert_file(input_file, output_file, template):
-    """Convert a Markdown file to PDF.
-    
-    INPUT_FILE: Path to the input Markdown file
-    OUTPUT_FILE: Path where to save the PDF file
-    """
+@click.option('--watermark', help='Watermark text to add to the PDF')
+@click.option(
+    '--watermark-position',
+    type=click.Choice(['center', 'top-left', 'top-right', 'bottom-left', 'bottom-right']),
+    default='center',
+    help='Position of the watermark'
+)
+@click.option(
+    '--watermark-rotation',
+    type=int,
+    default=-45,
+    help='Rotation angle of the watermark in degrees'
+)
+@click.option(
+    '--watermark-opacity',
+    type=float,
+    default=0.3,
+    help='Opacity of the watermark (0.0 to 1.0)'
+)
+def convert_file(
+    input_file: str,
+    output_file: str,
+    template: str,
+    watermark: str,
+    watermark_position: str,
+    watermark_rotation: int,
+    watermark_opacity: float
+):
+    """Convert a Markdown file to PDF."""
     converter = MarkdownToPDFConverter()
-    if converter.convert(input_file, output_file, template):
+    success = converter.convert(
+        input_file,
+        output_file,
+        template,
+        watermark_text=watermark,
+        watermark_position=watermark_position,
+        watermark_rotation=watermark_rotation,
+        watermark_opacity=watermark_opacity
+    )
+    
+    if success:
         click.echo(f"Successfully converted {input_file} to {output_file}")
     else:
         click.echo("Conversion failed!", err=True)
@@ -30,19 +63,52 @@ def convert_file(input_file, output_file, template):
 @cli.command()
 @click.argument('output_file', type=click.Path())
 @click.option('--template', default='default.html', help='HTML template to use')
-def convert_string(output_file, template):
-    """Convert Markdown from stdin to PDF.
+@click.option('--watermark', help='Watermark text to add to the PDF')
+@click.option(
+    '--watermark-position',
+    type=click.Choice(['center', 'top-left', 'top-right', 'bottom-left', 'bottom-right']),
+    default='center',
+    help='Position of the watermark'
+)
+@click.option(
+    '--watermark-rotation',
+    type=int,
+    default=-45,
+    help='Rotation angle of the watermark in degrees'
+)
+@click.option(
+    '--watermark-opacity',
+    type=float,
+    default=0.3,
+    help='Opacity of the watermark (0.0 to 1.0)'
+)
+def convert_string(
+    output_file: str,
+    template: str,
+    watermark: str,
+    watermark_position: str,
+    watermark_rotation: int,
+    watermark_opacity: float
+):
+    """Convert Markdown from stdin to PDF."""
+    if sys.stdin.isatty():
+        click.echo("Error: No input provided via stdin", err=True)
+        sys.exit(1)
     
-    OUTPUT_FILE: Path where to save the PDF file
-    
-    Reads Markdown content from stdin until EOF (Ctrl+D).
-    """
-    # Read from stdin
     content = sys.stdin.read()
-    
     converter = MarkdownToPDFConverter()
-    if converter.convert_string(content, output_file, template):
-        click.echo(f"Successfully converted input to {output_file}")
+    success = converter.convert_string(
+        content,
+        output_file,
+        template,
+        watermark_text=watermark,
+        watermark_position=watermark_position,
+        watermark_rotation=watermark_rotation,
+        watermark_opacity=watermark_opacity
+    )
+    
+    if success:
+        click.echo(f"Successfully converted stdin to {output_file}")
     else:
         click.echo("Conversion failed!", err=True)
         sys.exit(1)
