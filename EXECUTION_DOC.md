@@ -1,150 +1,181 @@
 # Markdown to PDF Converter - Execution Documentation
 
-## Project Status
-Current Version: 1.0.0
-Last Updated: 2025-02-02
+## Project Status (as of 2025-02-02)
 
-## Features Implementation Status
+### Completed Features
 
-### Core Features
-- FR1: Input Handling (5 points) 
-  - File upload with encoding detection
-  - Text paste via stdin
-  - Input validation and sanitization
-  - Error handling for invalid inputs
-  - Support for different file encodings
+#### Epic 1: Core Conversion ( Complete)
+- Full Markdown syntax support
+- Table handling with auto-scaling
+- Code syntax highlighting
+- YAML frontmatter support
+- Custom template system
+- String and file input support
+- Comprehensive test coverage
 
-- FR2: Markdown Formatting (8 points) 
-  - Headings (h1-h6) with proper styling
-  - Ordered and unordered lists with nesting
-  - Code blocks with syntax highlighting
-  - Inline code formatting
-  - Blockquotes
-  - Links and images
-  - Horizontal rules
-  - Basic text formatting (bold, italic)
+#### Epic 2: User Interface ( In Progress)
+- Basic GUI implementation complete:
+  - Split-pane interface with editor and preview
+  - Real-time Markdown preview
+  - File operations (New, Open, Save)
+  - PDF export integration
+  - Basic syntax highlighting
+  - Error handling and user feedback
+  - Cross-platform compatibility (PyQt6-based)
 
-- FR3: Table Handling (8 points) 
-  - Basic table support
-  - Auto-scaling for wide tables
-  - Responsive design for different content widths
-  - Font size adjustments for better readability
-  - Content-aware formatting
-  - Header repetition on new pages
+### Upcoming Features
 
-- FR4: A4 Page Configuration (5 points) 
-  - Default A4 size configuration
-  - Proper margin settings (2.5cm)
-  - Page numbering
-  - Content scaling for page size
-  - Consistent page layouts
+#### Epic 2: User Interface (Remaining Tasks)
+1. Configuration Panel
+   - Template selection
+   - Style customization
+   - Export settings
+   - User preferences
 
-### Backlog Features
-- FR5: Watermark Configuration ( points) 
-  - Text watermark configuration
-  - Position customization
-  - Rotation control
-  - Opacity adjustment
+2. Enhanced Editor Features
+   - Advanced syntax highlighting
+   - Auto-completion
+   - Spell checking
+   - Find and replace
 
-**Note**: The watermark feature implementation has been moved to the backlog due to technical challenges with the current approach. Two attempts were made:
-1. HTML/CSS-based watermark using WeasyPrint
-2. Direct PDF manipulation using reportlab and PyPDF2
+3. Preview Enhancements
+   - Custom style themes
+   - Print preview
+   - Zoom controls
+   - Table of contents
 
-Both approaches had limitations in achieving the desired visibility and consistency across different PDF viewers. This feature will be revisited in a future sprint with alternative technical solutions.
+#### Epic 3: Deployment & Non-Functional Requirements ( Planned)
+1. Cross-Platform Packaging
+   - Windows installer
+   - macOS package
+   - Linux package (deb, rpm)
+   - PyPI distribution
 
-## Project Structure
+2. Performance Optimization
+   - Large document handling
+   - Memory usage optimization
+   - Startup time improvement
+   - Preview rendering optimization
+
+3. Advanced Features
+   - Plugin system
+   - Custom template management
+   - Export format options
+   - Batch processing
+
+### Technical Implementation
+
+#### Core Module
+- Uses WeasyPrint for PDF generation
+- Python-Markdown for parsing
+- Jinja2 for templating
+- BeautifulSoup4 for HTML processing
+
+#### GUI Module
+- Built with PyQt6 framework
+- Components:
+  - MainWindow: Application shell and menu system
+  - MarkdownEditor: Text editing component
+  - PreviewPanel: Live preview using QtWebEngine
+  - Converter integration for PDF export
+
+#### Testing
+- Comprehensive test suite for core functionality
+- GUI component tests with PyQt6 test framework
+- Automated test runner (run_tests.sh)
+- Integration tests for complete workflows
+
+### Development Guidelines
+
+#### Code Organization
 ```
 md_to_pdf/
-├── __init__.py         # Package initialization
-├── converter.py        # Core conversion logic
-├── cli.py             # Command-line interface
-└── templates/         
-    └── default.html    # HTML/CSS template
+├── __init__.py
+├── converter.py      # Core conversion logic
+├── templates/        # HTML templates
+└── gui/             # GUI components
+    ├── __init__.py
+    ├── main_window.py
+    ├── editor.py
+    └── preview.py
 ```
 
-### Installation
-```bash
-# Clone the repository
-git clone <repository-url>
-cd python-md-to-pdf-converstor
+#### Testing Strategy
+1. Unit Tests
+   - Core conversion functions
+   - GUI components
+   - Template handling
 
-# Install dependencies
-python3 -m pip install -r requirements.txt
+2. Integration Tests
+   - Complete conversion workflow
+   - GUI interactions
+   - File operations
 
-# For Fedora, install system dependencies
-sudo dnf install python3-pip python3-cffi python3-brotli pango harfbuzz pango-devel cairo-devel
-```
+3. Manual Testing Requirements
+   - Cross-platform verification
+   - Large document handling
+   - User interface usability
+   - Export quality verification
 
-### Basic Usage
-1. Convert a Markdown file to PDF:
-```bash
-python3 -m md_to_pdf.cli convert-file input.md output.pdf
-```
+### Installation Requirements
 
-2. Convert Markdown text from stdin:
-```bash
-echo "# Test" | python3 -m md_to_pdf.cli convert-string output.pdf
-```
-
-## Testing Instructions
-
-### 1. Basic Features Test
-Use `test_features.md`:
-```markdown
-# Heading 1
-## Heading 2
-
-- List item 1
-- List item 2
-
-1. Numbered item 1
-2. Numbered item 2
-
-\`\`\`python
-def test():
-    print("Hello")
-\`\`\`
-```
-
-### 2. Table Features Test
-Use `table_test.md` to test various table scenarios:
-- Regular tables
-- Wide tables
-- Long content
-- Many rows
-- Numeric data
-
-### 3. Page Configuration Test
-Test A4 formatting and page breaks with `page_test.md`
-
-## Known Issues and Limitations
-1. Tables wider than page width may scale down for readability
-2. Watermark feature not yet implemented
-3. Some complex markdown extensions not supported
-
-## Architecture
-See `docs/architecture.svg` for the system flow diagram.
-
-## Performance Metrics
-- Average conversion time: < 2 seconds for standard documents
-- Memory usage: ~100MB for typical operations
-- Supported file size: Up to 10MB markdown files
-
-## Development Notes
-- Used WeasyPrint for PDF generation
-- Implemented file-based approach for better resource handling
-- Added comprehensive CSS styling for all markdown elements
-- Included error handling and input validation
-- Created modular code structure for maintainability
-
-## Dependencies
-- Python 3.7+
-- WeasyPrint 52.5
-- Markdown 3.4.3
-- Other dependencies in requirements.txt
-
-## System Requirements
-For Fedora:
+#### System Dependencies (Fedora)
 ```bash
 sudo dnf install python3-pip python3-cffi python3-brotli pango harfbuzz pango-devel cairo-devel
 ```
+
+#### Python Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Usage
+
+#### Command Line Interface
+```python
+from md_to_pdf import MarkdownToPDFConverter
+converter = MarkdownToPDFConverter()
+converter.convert('input.md', 'output.pdf')
+```
+
+#### Graphical Interface
+```bash
+python3 run_gui.py
+```
+
+### Known Issues and Limitations
+1. Memory usage with large documents needs optimization
+2. Template customization requires manual file editing
+3. Limited support for complex table layouts
+4. Watermark feature moved to backlog
+
+### Future Roadmap
+
+#### Version 2.0
+- Complete GUI implementation
+- Advanced editor features
+- Template management system
+- Performance optimizations
+
+#### Version 2.1
+- Plugin system
+- Theme support
+- Export format options
+- Configuration management
+
+#### Version 3.0
+- Cloud integration
+- Collaborative editing
+- Version control
+- Asset management
+
+### Contributing Guidelines
+1. Fork the repository
+2. Create feature branch
+3. Follow PEP 8 style guide
+4. Include tests for new features
+5. Update documentation
+6. Submit pull request
+
+### License
+MIT License - See LICENSE file for details

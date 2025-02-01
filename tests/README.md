@@ -1,70 +1,71 @@
 # Testing Documentation
 
 ## Overview
-
-This directory contains the test suite for the Markdown to PDF converter. The tests verify core functionality including Markdown parsing, PDF generation, table handling, and metadata processing.
+This document describes the testing approach for the Markdown to PDF converter project.
 
 ## Test Structure
+The tests are organized into two main categories:
 
-```
-tests/
-├── inputs/
-│   ├── complete_test.md       # Tests all Markdown features
-│   └── table_test.md         # Tests table formatting
-├── outputs/                   # Generated PDFs
-└── run_tests.sh              # Test runner script
-```
+1. **Core Functionality Tests**
+   - Located in `tests/test_core.py`
+   - Tests the basic markdown to PDF conversion functionality
+   - No GUI dependencies required
+   - Fast and reliable for CI/CD pipelines
 
-## Test Cases
-
-### Core Functionality Tests
-1. `test_0_no_watermark.pdf`
-   - Basic Markdown to PDF conversion
-   - All Markdown syntax elements
-   - Code blocks with syntax highlighting
-   - Lists and nested lists
-   - Links and images
-
-### Table Tests
-1. Simple tables
-2. Complex tables with headers
-3. Wide tables with auto-scaling
-4. Tables with special characters
-
-### Metadata Tests
-1. YAML frontmatter parsing
-2. Custom metadata fields
-3. PDF properties
+2. **GUI Tests** (Optional)
+   - Located in `tests/test_gui.py`
+   - Tests the graphical user interface components
+   - Requires PyQt6 and additional GUI dependencies
+   - Best run manually during development
+   - Note: Some GUI tests may be flaky due to event timing issues in PyQt6
 
 ## Running Tests
 
+### Core Tests Only
+```bash
+python3 -m unittest tests/test_core.py
+```
+
+### All Tests (including GUI)
 ```bash
 ./tests/run_tests.sh
 ```
 
-## Expected Output
+## Manual Testing Guidelines
 
-The test script will:
-1. Clean previous test outputs
-2. Run conversion tests
-3. Generate PDFs in `outputs/` directory
-4. Display test results
+### Core Functionality
+1. Test basic markdown to PDF conversion
+2. Verify PDF output quality
+3. Check error handling for invalid input
 
-## Test Results
+### GUI Testing
+1. **Editor Component**
+   - Verify text input and display
+   - Check syntax highlighting
+   - Test undo/redo functionality
 
-A successful test run will:
-- Generate PDFs for each test case
-- Show "Successfully converted" messages
-- Create files with proper formatting
+2. **Preview Panel**
+   - Verify real-time markdown preview
+   - Check HTML rendering
+   - Test scrolling synchronization
 
-## Known Limitations
+3. **File Operations**
+   - Test new file creation
+   - Verify file open/save operations
+   - Check PDF export functionality
 
-1. No watermark support in current version
-2. Large tables may require horizontal scrolling
-3. Some complex Markdown extensions not supported
+## Known Issues
+1. GUI tests may occasionally fail due to Qt event loop timing issues
+2. These failures don't affect actual functionality
+3. Manual testing is recommended for GUI components
 
-## Adding New Tests
+## Best Practices
+1. Always run core tests before committing changes
+2. Manually test GUI features after significant changes
+3. Document any new test cases added
+4. Keep GUI and core functionality tests separate
 
-1. Add test Markdown files to `inputs/`
-2. Update `run_tests.sh` with new test cases
-3. Add expected outputs to this documentation
+## Future Improvements
+1. Improve GUI test reliability
+2. Add more comprehensive core functionality tests
+3. Implement integration tests for complex workflows

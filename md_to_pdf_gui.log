@@ -1,0 +1,33 @@
+2025-02-02 03:14:19,513 - weasyprint - WARNING - Ignored `overflow-x: auto` at 25:13, unknown property.
+2025-02-02 03:14:19,519 - weasyprint - WARNING - Ignored `word-break: break-word` at 53:13, invalid value.
+2025-02-02 03:14:19,521 - weasyprint - WARNING - Ignored `position: sticky` at 67:13, invalid value.
+2025-02-02 03:14:19,522 - weasyprint - WARNING - Ignored `overflow-x: visible` at 91:17, unknown property.
+2025-02-02 03:14:19,524 - weasyprint - WARNING - Ignored `print-color-adjust: exact` at 122:17, unknown property.
+2025-02-02 03:14:19,525 - weasyprint - WARNING - Ignored `overflow-x: auto` at 141:13, unknown property.
+2025-02-02 03:14:19,753 - fontTools.varlib.mutator - INFO - Normalized location: {'wght': 0.0}
+2025-02-02 03:14:19,754 - fontTools.varlib.mutator - INFO - Mutating glyf/gvar tables
+2025-02-02 03:14:19,775 - fontTools.varlib.mutator - INFO - Mutating FeatureVariations
+2025-02-02 03:14:19,775 - fontTools.varlib.mutator - INFO - Pruning name table
+2025-02-02 03:14:19,776 - fontTools.varlib.mutator - INFO - Removing variable tables
+2025-02-02 03:41:28,731 - weasyprint - WARNING - Ignored `overflow-x: auto` at 25:13, unknown property.
+2025-02-02 03:41:28,732 - weasyprint - WARNING - Ignored `word-break: break-word` at 53:13, invalid value.
+2025-02-02 03:41:28,734 - weasyprint - WARNING - Ignored `position: sticky` at 67:13, invalid value.
+2025-02-02 03:41:28,735 - weasyprint - WARNING - Ignored `overflow-x: visible` at 91:17, unknown property.
+2025-02-02 03:41:28,736 - weasyprint - WARNING - Ignored `print-color-adjust: exact` at 122:17, unknown property.
+2025-02-02 03:41:28,738 - weasyprint - WARNING - Ignored `overflow-x: auto` at 141:13, unknown property.
+2025-02-02 03:41:28,999 - fontTools.varlib.mutator - INFO - Normalized location: {'wght': 0.0}
+2025-02-02 03:41:28,999 - fontTools.varlib.mutator - INFO - Mutating glyf/gvar tables
+2025-02-02 03:41:29,028 - fontTools.varlib.mutator - INFO - Mutating FeatureVariations
+2025-02-02 03:41:29,029 - fontTools.varlib.mutator - INFO - Pruning name table
+2025-02-02 03:41:29,029 - fontTools.varlib.mutator - INFO - Removing variable tables
+2025-02-02 03:55:21,959 - weasyprint - WARNING - Ignored `overflow-x: auto` at 25:13, unknown property.
+2025-02-02 03:55:21,961 - weasyprint - WARNING - Ignored `word-break: break-word` at 53:13, invalid value.
+2025-02-02 03:55:21,962 - weasyprint - WARNING - Ignored `position: sticky` at 67:13, invalid value.
+2025-02-02 03:55:21,963 - weasyprint - WARNING - Ignored `overflow-x: visible` at 91:17, unknown property.
+2025-02-02 03:55:21,964 - weasyprint - WARNING - Ignored `print-color-adjust: exact` at 122:17, unknown property.
+2025-02-02 03:55:21,966 - weasyprint - WARNING - Ignored `overflow-x: auto` at 141:13, unknown property.
+2025-02-02 03:55:22,128 - fontTools.varlib.mutator - INFO - Normalized location: {'wght': 0.0}
+2025-02-02 03:55:22,128 - fontTools.varlib.mutator - INFO - Mutating glyf/gvar tables
+2025-02-02 03:55:22,139 - fontTools.varlib.mutator - INFO - Mutating FeatureVariations
+2025-02-02 03:55:22,139 - fontTools.varlib.mutator - INFO - Pruning name table
+2025-02-02 03:55:22,140 - fontTools.varlib.mutator - INFO - Removing variable tables

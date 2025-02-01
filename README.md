@@ -1,130 +1,130 @@
-# Markdown to PDF Converter
+# MarkFlow: Modern Markdown to PDF Converter
 
-A robust Python-based tool for converting Markdown documents to PDF with advanced formatting options.
+<div align="center">
 
-## Project Status
+![MarkFlow Logo](docs/logo.svg)
 
-### Version 2 Development
-- Epic 1: Core Conversion (Completed)
-- Epic 2: User Interface (In Progress)
-- Epic 3: Deployment & Performance (Planned)
+[![Python Version](https://img.shields.io/badge/python-3.7%2B-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-## Features
+*Convert Markdown files to beautifully formatted PDFs with ease*
 
-### Current (v1.0)
-- Full Markdown syntax support
-- GitHub-flavored Markdown extensions
-- Code syntax highlighting
-- Table support with auto-scaling
-- Custom templates
-- YAML frontmatter support
-- Custom metadata fields
+[Installation](#installation) • [Usage](#usage) • [Features](#features) • [Contributing](#contributing) • [Documentation](#documentation)
 
-### Coming Soon (v2.0)
-- Graphical User Interface
-- Real-time preview
-- Configuration panel
-- Cross-platform installers
-- Performance optimizations
-- Watermark support
+</div>
 
-## Installation
+## ✨ Features
 
-1. Install system dependencies (Fedora):
-   ```bash
-   sudo dnf install python3-pip python3-cffi python3-brotli pango harfbuzz pango-devel cairo-devel
-   ```
+- 📝 **Dual Interface**: Choose between CLI or GUI based on your needs
+- 🎨 **Real-time Preview**: Instant visualization of your markdown (GUI mode)
+- 🚀 **Fast Conversion**: Efficient markdown to PDF processing
+- 🎯 **Modular Design**: Use only what you need
+- 🎭 **Syntax Highlighting**: Beautiful code formatting
+- 📊 **Table Support**: Clean table rendering
+- 🔧 **Customizable**: Style with custom CSS
 
-2. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## 🚀 Installation
 
-## Usage
+### Basic Installation (CLI Only)
+```bash
+pip install markflow
+```
 
-### Basic Usage
+### Full Installation (with GUI)
+```bash
+pip install markflow[gui]
+```
 
+## 💡 Usage
+
+### CLI Mode
+```bash
+# Basic conversion
+markflow input.md output.pdf
+
+# With custom styling
+markflow input.md output.pdf --style custom.css
+```
+
+### GUI Mode
+```bash
+# Launch the interactive editor
+markflow-gui
+```
+
+### Python API
 ```python
-from md_to_pdf import MarkdownToPDFConverter
+from markflow.core import convert_to_pdf
 
-# Initialize converter
-converter = MarkdownToPDFConverter()
-
-# Convert file
-converter.convert('input.md', 'output.pdf')
-
-# Convert string
-markdown_content = '# Hello World\n\nThis is a test.'
-converter.convert_string(markdown_content, 'output.pdf')
+# Convert a file
+convert_to_pdf('input.md', 'output.pdf')
 ```
 
-### Template Customization
+## 🏗️ Architecture
 
-The converter supports custom HTML templates. Place your templates in the `templates` directory and specify the template name when converting:
+![Architecture](docs/architecture.svg)
 
-```python
-converter.convert('input.md', 'output.pdf', template_name='custom.html')
+MarkFlow uses a modular architecture:
+- **Core Module**: Handles markdown parsing and PDF generation
+- **CLI Interface**: Command-line tools for quick conversions
+- **GUI Module** (Optional): Interactive editor with real-time preview
+
+## 🛠️ Development
+
+### Setup Development Environment
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/markflow.git
+cd markflow
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\\Scripts\\activate   # Windows
+
+# Install dependencies
+pip install -r requirements-dev.txt
 ```
-
-### Document Metadata
-
-Add YAML frontmatter to your Markdown files for custom metadata:
-
-```markdown
----
-title: My Document
-author: John Doe
-date: 2025-02-02
----
-
-# Document Content
-...
-```
-
-## Development
 
 ### Running Tests
-
 ```bash
+# Run all tests
 ./tests/run_tests.sh
+
+# Run specific test
+python -m unittest tests/test_core.py
 ```
 
-### Project Structure
+## 📚 Documentation
 
-```
-md_to_pdf/
-├── __init__.py
-├── converter.py
-├── watermark.py
-└── templates/
-    └── default.html
-tests/
-├── inputs/
-├── outputs/
-└── run_tests.sh
-```
+- [User Guide](docs/user_guide.md)
+- [API Reference](docs/api_reference.md)
+- [Development Notes](docs/development.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
 
-## Known Issues
+## 🤝 Contributing
 
-1. Watermark feature is currently in development and has been moved to the backlog
-2. Performance optimization needed for large documents
-3. Limited support for complex table layouts
-
-## Contributing
+We welcome contributions! See our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## License
+## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
-- WeasyPrint for PDF generation
-- Python-Markdown for Markdown parsing
-- Jinja2 for templating
-- BeautifulSoup4 for HTML processing
+- [WeasyPrint](https://weasyprint.org/) for PDF generation
+- [PyQt6](https://www.riverbankcomputing.com/software/pyqt/) for the GUI interface
+- [Python-Markdown](https://python-markdown.github.io/) for markdown processing
+
+---
+
+<div align="center">
+Made with ❤️ by the MarkFlow team
+</div>

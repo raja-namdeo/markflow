@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="400" height="120" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect x="0" y="0" width="400" height="120" fill="#ffffff"/>
+    
+    <!-- Main Text -->
+    <text x="20" y="80" font-family="Arial" font-size="60" font-weight="bold">
+        <tspan fill="#2196F3">Mark</tspan><tspan fill="#4CAF50">Flow</tspan>
+    </text>
+    
+    <!-- Flowing Arrow -->
+    <path d="M 320 40 C 340 40, 360 60, 360 80 C 360 100, 340 120, 320 120" 
+          fill="none" stroke="#FFC107" stroke-width="8" stroke-linecap="round"/>
+    
+    <!-- Markdown Symbol -->
+    <text x="270" y="80" font-family="Arial" font-size="40" fill="#666"># </text>
+    
+    <!-- Tagline -->
+    <text x="20" y="100" font-family="Arial" font-size="14" fill="#666">Modern Markdown to PDF Converter</text>
+</svg>
