@@ -3,22 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <style>
+        @page {
+            size: A4;
+            margin: 2.5cm;
+            @top-center {
+                content: "";
+            }
+            @bottom-center {
+                content: counter(page);
+            }
+        }
+        
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            margin: 2cm;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
         }
-        h1, h2, h3 { color: #2c3e50; }
-        code {
-            background-color: #f7f7f7;
-            padding: 2px 4px;
-            border-radius: 4px;
+
+        /* Headings */
+        h1, h2, h3, h4, h5, h6 {
+            color: #2c3e50;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
         }
+        h1 { font-size: 2em; }
+        h2 { font-size: 1.5em; }
+        h3 { font-size: 1.2em; }
+
+        /* Code Blocks */
         pre {
-            background-color: #f7f7f7;
+            background-color: #f5f5f5;
             padding: 1em;
             border-radius: 4px;
             overflow-x: auto;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f5f5f5;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        /* Tables */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1em 0;
+            font-size: 0.9em;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        table {
+            max-width: 100%;
+            overflow-x: auto;
+            display: block;
+        }
+
+        /* Lists */
+        ul, ol {
+            padding-left: 2em;
+            margin: 1em 0;
+        }
+        li {
+            margin: 0.5em 0;
+        }
+
+        /* Blockquotes */
+        blockquote {
+            margin: 1em 0;
+            padding-left: 1em;
+            border-left: 4px solid #2c3e50;
+            color: #666;
+        }
+
+        /* Links */
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Horizontal Rule */
+        hr {
+            border: none;
+            border-top: 2px solid #eee;
+            margin: 2em 0;
+        }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Auto-scaling for tables */
+        @media print {
+            table {
+                font-size: 0.8em;
+            }
+            td, th {
+                padding: 4px;
+            }
+            pre, code {
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
         }
     </style>
 </head>
