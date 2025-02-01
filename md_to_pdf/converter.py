@@ -8,8 +8,58 @@ import frontmatter
 import os
 from pathlib import Path
 import tempfile
-from typing import Optional, Union
+from typing import Optional, Union, Dict, List
 import chardet
+from bs4 import BeautifulSoup, Tag
+
+class TableProcessor:
+    """Process and optimize tables for PDF output."""
+    
+    @staticmethod
+    def process_tables(soup: BeautifulSoup) -> None:
+        """
+        Process all tables in the document.
+        
+        Args:
+            soup: BeautifulSoup document
+        """
+        for table in soup.find_all('table'):
+            # Create wrapper div
+            wrapper = soup.new_tag('div')
+            wrapper['class'] = 'table-wrapper'
+            
+            # Get table metrics
+            rows = table.find_all('tr')
+            if not rows:
+                continue
+                
+            num_columns = len(rows[0].find_all(['th', 'td']))
+            long_content = False
+            
+            # Process cells and check content
+            for row in rows:
+                for cell in row.find_all(['td', 'th']):
+                    content = cell.get_text().strip()
+                    if len(content) > 50:
+                        cell['class'] = 'long-content'
+                        long_content = True
+                    elif content.replace('.', '').isdigit():
+                        cell['class'] = 'numeric'
+            
+            # Add appropriate classes
+            classes = []
+            if num_columns > 5:
+                classes.append('wide')
+            if num_columns > 7:
+                classes.append('very-wide')
+            if long_content:
+                classes.append('content-heavy')
+            
+            if classes:
+                table['class'] = ' '.join(classes)
+            
+            # Wrap table
+            table.wrap(wrapper)
 
 class MarkdownInput:
     """Handles different types of markdown input and validation."""
@@ -111,7 +161,64 @@ class MarkdownToPDFConverter:
         self.template_dir = template_dir
         self.env = Environment(loader=FileSystemLoader(self.template_dir))
         self.markdown_input = MarkdownInput()
+        self.table_processor = TableProcessor()
+    
+    def _process_html_content(self, html_content: str) -> str:
+        """
+        Process and optimize HTML content.
         
+        Args:
+            html_content: Raw HTML content
+            
+        Returns:
+            Processed HTML content
+        """
+        soup = BeautifulSoup(html_content, 'html.parser')
+        TableProcessor.process_tables(soup)
+        return str(soup)
+    
+    def _convert_to_pdf(self, content: str, output_file: str, template_name: str) -> bool:
+        """Convert processed content to PDF."""
+        try:
+            # Convert markdown to HTML with extended features
+            html_content = markdown.markdown(
+                content,
+                extensions=[
+                    'tables',
+                    'fenced_code',
+                    'codehilite',
+                    'attr_list'  # Enable attribute lists for additional styling
+                ]
+            )
+            
+            # Process and optimize HTML
+            processed_html = self._process_html_content(html_content)
+            
+            # Render template
+            template = self.env.get_template(template_name)
+            final_html = template.render(content=processed_html)
+            
+            # Create temporary file
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False) as tmp:
+                tmp.write(final_html)
+                tmp_path = tmp.name
+            
+            try:
+                # Ensure output directory exists
+                output_path = Path(output_file)
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                
+                # Convert to PDF
+                HTML(filename=tmp_path).write_pdf(output_file)
+                return True
+            finally:
+                # Cleanup
+                os.unlink(tmp_path)
+                
+        except Exception as e:
+            print(f"Error during conversion: {str(e)}")
+            return False
+    
     def convert_string(self, content: str, output_file: str, template_name: str = 'default.html') -> bool:
         """
         Convert markdown string to PDF.
@@ -149,44 +256,3 @@ class MarkdownToPDFConverter:
         except Exception as e:
             print(f"Error during conversion: {str(e)}")
             return False
-    
-    def _convert_to_pdf(self, content: str, output_file: str, template_name: str) -> bool:
-        """
-        Internal method to convert markdown to PDF.
-        
-        Args:
-            content: Processed markdown content
-            output_file: Output PDF path
-            template_name: Template name
-            
-        Returns:
-            bool: True if successful
-        """
-        # Convert markdown to HTML
-        html_content = markdown.markdown(
-            content,
-            extensions=['tables', 'fenced_code', 'codehilite']
-        )
-        
-        # Get the template
-        template = self.env.get_template(template_name)
-        
-        # Render the template with our HTML content
-        final_html = template.render(content=html_content)
-        
-        # Create a temporary file to store the HTML
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False) as tmp:
-            tmp.write(final_html)
-            tmp_path = tmp.name
-        
-        try:
-            # Ensure output directory exists
-            output_path = Path(output_file)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-            
-            # Convert to PDF using the file-based approach
-            HTML(filename=tmp_path).write_pdf(output_file)
-            return True
-        finally:
-            # Clean up the temporary file
-            os.unlink(tmp_path)

@@ -22,6 +22,111 @@
             padding: 0;
         }
 
+        /* Enhanced Table Styling */
+        .table-wrapper {
+            width: 100%;
+            margin: 1em 0;
+            overflow-x: auto;
+            background: linear-gradient(to right, white 30%, rgba(255, 255, 255, 0)),
+                        linear-gradient(to right, rgba(255, 255, 255, 0), white 70%) 0 100%,
+                        radial-gradient(farthest-side at 0% 50%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)),
+                        radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+            background-repeat: no-repeat;
+            background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+            background-position: 0 0, 100% 0, 0 0, 100% 0;
+            background-attachment: local, local, scroll, scroll;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            background-color: white;
+        }
+
+        /* Table types */
+        table.wide {
+            font-size: 0.9em;
+        }
+
+        table.very-wide {
+            font-size: 0.8em;
+        }
+
+        table.content-heavy {
+            word-break: break-word;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+            color: #2c3e50;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Table cell content handling */
+        td.long-content {
+            max-width: 300px;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        td.numeric {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Print-specific styles */
+        @media print {
+            .table-wrapper {
+                overflow-x: visible;
+                background: none;
+            }
+
+            table {
+                page-break-inside: auto;
+            }
+
+            tr {
+                page-break-inside: avoid;
+                page-break-after: auto;
+            }
+
+            thead {
+                display: table-header-group;
+            }
+
+            tfoot {
+                display: table-footer-group;
+            }
+
+            /* Auto-scaling for very wide tables */
+            table.very-wide {
+                transform: scale(0.9);
+                transform-origin: left top;
+            }
+
+            /* Ensure headers repeat on each page */
+            thead tr {
+                background-color: #f5f5f5 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
         /* Headings */
         h1, h2, h3, h4, h5, h6 {
             color: #2c3e50;
@@ -47,27 +152,6 @@
             padding: 0.2em 0.4em;
             border-radius: 3px;
             font-size: 0.9em;
-        }
-
-        /* Tables */
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 1em 0;
-            font-size: 0.9em;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f5f5f5;
-        }
-        table {
-            max-width: 100%;
-            overflow-x: auto;
-            display: block;
         }
 
         /* Lists */
