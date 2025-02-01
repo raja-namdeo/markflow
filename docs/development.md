@@ -1,5 +1,9 @@
 # MarkFlow Development Guide
 
+> **Author**: Raja Namdeo  
+> **Email**: cse.rajanamdeo@gmail.com  
+> **Role**: Software Developer  
+
 ## Overview
 
 MarkFlow is designed with modularity in mind, separating core functionality from user interfaces. This guide will help you understand the codebase and contribute effectively.

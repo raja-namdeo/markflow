@@ -1,5 +1,9 @@
 # MarkFlow API Reference
 
+> **Author**: Raja Namdeo  
+> **Email**: cse.rajanamdeo@gmail.com  
+> **Role**: Software Developer  
+
 ## Core Module
 
 ### `convert_to_pdf`

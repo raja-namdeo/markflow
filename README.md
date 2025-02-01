@@ -14,6 +14,14 @@
 
 </div>
 
+---
+
+**Author**: Raja Namdeo  
+**Email**: cse.rajanamdeo@gmail.com  
+**Role**: Software Developer  
+
+---
+
 ## ✨ Features
 
 - 📝 **Dual Interface**: Choose between CLI or GUI based on your needs

@@ -1,5 +1,9 @@
 # MarkFlow User Guide
 
+> **Author**: Raja Namdeo  
+> **Email**: cse.rajanamdeo@gmail.com  
+> **Role**: Software Developer  
+
 ## Getting Started
 
 ### Installation
