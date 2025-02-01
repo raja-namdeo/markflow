@@ -2,8 +2,16 @@
 
 A robust Python-based tool for converting Markdown documents to PDF with advanced formatting options.
 
+## Project Status
+
+### Version 2 Development
+- Epic 1: Core Conversion (Completed)
+- Epic 2: User Interface (In Progress)
+- Epic 3: Deployment & Performance (Planned)
+
 ## Features
 
+### Current (v1.0)
 - Full Markdown syntax support
 - GitHub-flavored Markdown extensions
 - Code syntax highlighting
@@ -11,7 +19,14 @@ A robust Python-based tool for converting Markdown documents to PDF with advance
 - Custom templates
 - YAML frontmatter support
 - Custom metadata fields
-- Watermark support (coming soon)
+
+### Coming Soon (v2.0)
+- Graphical User Interface
+- Real-time preview
+- Configuration panel
+- Cross-platform installers
+- Performance optimizations
+- Watermark support
 
 ## Installation
 
