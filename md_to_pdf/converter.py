@@ -12,7 +12,10 @@ import tempfile
 from typing import Optional, Union, Dict, List
 import chardet
 from bs4 import BeautifulSoup, Tag
+<<<<<<< HEAD
 from .watermark import WatermarkConfig, apply_watermark_to_pdf
+=======
+>>>>>>> 8c87781 (feat(tables): enhance table handling and documentation)
 
 class TableProcessor:
     """Process and optimize tables for PDF output."""
@@ -165,18 +168,26 @@ class MarkdownToPDFConverter:
         self.markdown_input = MarkdownInput()
         self.table_processor = TableProcessor()
     
+<<<<<<< HEAD
     def _process_html_content(self, html_content: str, watermark_config: Optional[WatermarkConfig] = None) -> str:
+=======
+    def _process_html_content(self, html_content: str) -> str:
+>>>>>>> 8c87781 (feat(tables): enhance table handling and documentation)
         """
         Process and optimize HTML content.
         
         Args:
             html_content: Raw HTML content
+<<<<<<< HEAD
             watermark_config: Optional watermark configuration
+=======
+>>>>>>> 8c87781 (feat(tables): enhance table handling and documentation)
             
         Returns:
             Processed HTML content
         """
         soup = BeautifulSoup(html_content, 'html.parser')
+<<<<<<< HEAD
         
         # Process tables
         TableProcessor.process_tables(soup)
@@ -197,6 +208,12 @@ class MarkdownToPDFConverter:
         template_name: str,
         watermark_config: Optional[WatermarkConfig] = None
     ) -> bool:
+=======
+        TableProcessor.process_tables(soup)
+        return str(soup)
+    
+    def _convert_to_pdf(self, content: str, output_file: str, template_name: str) -> bool:
+>>>>>>> 8c87781 (feat(tables): enhance table handling and documentation)
         """Convert processed content to PDF."""
         try:
             # Convert markdown to HTML with extended features
@@ -211,12 +228,17 @@ class MarkdownToPDFConverter:
             )
             
             # Process and optimize HTML
+<<<<<<< HEAD
             processed_html = self._process_html_content(html_content, watermark_config)
+=======
+            processed_html = self._process_html_content(html_content)
+>>>>>>> 8c87781 (feat(tables): enhance table handling and documentation)
             
             # Render template
             template = self.env.get_template(template_name)
             final_html = template.render(content=processed_html)
             
+<<<<<<< HEAD
             # Create temporary files
             temp_html = None
             temp_pdf = None
@@ -233,10 +255,19 @@ class MarkdownToPDFConverter:
                 # Convert HTML to PDF
                 HTML(filename=temp_html).write_pdf(temp_pdf)
                 
+=======
+            # Create temporary file
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.html', delete=False) as tmp:
+                tmp.write(final_html)
+                tmp_path = tmp.name
+            
+            try:
+>>>>>>> 8c87781 (feat(tables): enhance table handling and documentation)
                 # Ensure output directory exists
                 output_path = Path(output_file)
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 
+<<<<<<< HEAD
                 # Apply watermark if configured
                 if watermark_config:
                     apply_watermark_to_pdf(temp_pdf, output_file, watermark_config)
@@ -253,10 +284,20 @@ class MarkdownToPDFConverter:
                 if temp_pdf and os.path.exists(temp_pdf):
                     os.unlink(temp_pdf)
                     
+=======
+                # Convert to PDF
+                HTML(filename=tmp_path).write_pdf(output_file)
+                return True
+            finally:
+                # Cleanup
+                os.unlink(tmp_path)
+                
+>>>>>>> 8c87781 (feat(tables): enhance table handling and documentation)
         except Exception as e:
             print(f"Error during conversion: {str(e)}")
             return False
     
+<<<<<<< HEAD
     def convert(
         self,
         input_file: str,
@@ -313,11 +354,15 @@ class MarkdownToPDFConverter:
         watermark_rotation: int = -45,
         watermark_opacity: float = 0.3
     ) -> bool:
+=======
+    def convert_string(self, content: str, output_file: str, template_name: str = 'default.html') -> bool:
+>>>>>>> 8c87781 (feat(tables): enhance table handling and documentation)
         """
         Convert markdown string to PDF.
         
         Args:
             content: Markdown content string
+<<<<<<< HEAD
             output_file: Output PDF file path
             template_name: Template name to use
             watermark_text: Optional watermark text
@@ -342,6 +387,36 @@ class MarkdownToPDFConverter:
             # Convert to PDF
             return self._convert_to_pdf(content, output_file, template_name, watermark_config)
             
+=======
+            output_file: Path where to save the PDF
+            template_name: Name of the HTML template to use
+            
+        Returns:
+            bool: True if conversion was successful
+        """
+        try:
+            content = self.markdown_input.load_from_string(content)
+            return self._convert_to_pdf(content, output_file, template_name)
+        except Exception as e:
+            print(f"Error during conversion: {str(e)}")
+            return False
+            
+    def convert(self, input_file: str, output_file: str, template_name: str = 'default.html') -> bool:
+        """
+        Convert markdown file to PDF.
+        
+        Args:
+            input_file: Path to input Markdown file
+            output_file: Path where to save the PDF
+            template_name: Name of the HTML template to use
+            
+        Returns:
+            bool: True if conversion was successful
+        """
+        try:
+            content = self.markdown_input.load_from_file(input_file)
+            return self._convert_to_pdf(content, output_file, template_name)
+>>>>>>> 8c87781 (feat(tables): enhance table handling and documentation)
         except Exception as e:
             print(f"Error during conversion: {str(e)}")
             return False
